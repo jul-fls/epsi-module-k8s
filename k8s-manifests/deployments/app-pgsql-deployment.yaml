@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-pgsql
+  namespace: gestion-produits
+spec:
+  replicas: 6  # 3 per worker node if 2 nodes
+  selector:
+    matchLabels:
+      app: app-pgsql
+  template:
+    metadata:
+      labels:
+        app: app-pgsql
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/jul-fls/epsi-module-k8s/gestion-produits:latest
+          env:
+            - name: DB_TYPE
+              value: pgsql
+            - name: MYSQL_HOST
+              value: pgsql-db
+            - name: MYSQL_DB
+              value: gestion_produits
+            - name: PGSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-pgsql-secret
+                  key: PGSQL_USER
+            - name: PGSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-mysql-secret
+                  key: PGSQL_PASSWORD

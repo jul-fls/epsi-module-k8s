@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgsql-db
+  namespace: gestion-produits
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgsql-db
+  template:
+    metadata:
+      labels:
+        app: pgsql-db
+    spec:
+      containers:
+        - name: pgsql
+          image: postgres:17.5
+          envFrom:
+            - secretRef:
+                name: db-pgsql-secret
+          env:
+            - name: PG_DB
+              value: gestion_produits
+          volumeMounts:
+            - name: pgsql-init
+              mountPath: /docker-entrypoint-initdb.d
+            - name: pgsql-data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: pgsql-init
+          configMap:
+            name: pgsql-init-script
+        - name: pgsql-data
+          persistentVolumeClaim:
+            claimName: pgsql-pvc
