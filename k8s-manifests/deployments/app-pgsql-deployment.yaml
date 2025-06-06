@@ -4,7 +4,7 @@ metadata:
   name: app-pgsql
   namespace: gestion-produits
 spec:
-  replicas: 6  # 3 per worker node if 2 nodes
+  replicas: 4
   selector:
     matchLabels:
       app: app-pgsql
