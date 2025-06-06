@@ -1,1 +1,3 @@
-db_data/*
+mysql_db_data/*
+postgresql_db_data/*
+.env
