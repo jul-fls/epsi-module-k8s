@@ -1,21 +1,34 @@
-version: "3.3"
-
 services:
-  php:
-    container_name: gestion-produits-php
+  app:
+    container_name: gestion-produits-app
     image: gestion-produits-image
     ports:
       - 80:80
-  db:
-    container_name: gestion-produits-db
+    env_file: .env
+
+  mysql-db:
+    container_name: gestion-produits-mysql
     image: mysql:8.4
     environment:
-      MYSQL_USER: user
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: gestion_produits
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - 3306:3306
     volumes:
-      - ./db_data:/var/lib/mysql
+      - ./mysql_db_data:/var/lib/mysql
       - ./database/gestion_produits.sql:/docker-entrypoint-initdb.d/gestion_produits.sql
+
+  postgresql-db:
+    container_name: gestion-produits-postgresql
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${PG_DB}
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres_db_data:/var/lib/postgresql/data
+      - ./database/gestion_produits_pg.sql:/docker-entrypoint-initdb.d/gestion_produits_pg.sql
