@@ -7,22 +7,11 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
   nfs:
     server: 192.168.1.133
     path: /mnt/pool4To/kubernetes-cluster-storage-nfs/gestion-produits/pgsql
+  persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: gestion-produits
+    name: pgsql-data-pgsql-db-0
   storageClassName: manual
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pgsql-pvc
-  namespace: gestion-produits
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: manual
-  volumeName: pgsql-pv
