@@ -10,7 +10,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: 192.168.1.133
-    path: /mnt/pool4To/kubernetes-cluster-storage-nfs/pgsql
+    path: /mnt/pool4To/kubernetes-cluster-storage-nfs/gestion-produits/pgsql
   storageClassName: manual
 ---
 apiVersion: v1
