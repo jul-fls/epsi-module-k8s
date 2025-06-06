@@ -33,3 +33,8 @@ spec:
                 secretKeyRef:
                   name: db-pgsql-secret
                   key: PG_PASSWORD
+            - name: PG_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-pgsql-secret
+                  key: PG_ROOT_PASSWORD
