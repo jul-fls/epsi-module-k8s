@@ -16,11 +16,23 @@ spec:
       containers:
         - name: pgsql
           image: postgres:17.5
-          envFrom:
-            - secretRef:
-                name: db-pgsql-secret
           env:
-            - name: PG_DB
+            - name: POSTGRES_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-pgsql-secret
+                  key: PG_ROOT_PASSWORD
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-pgsql-secret
+                  key: PG_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-pgsql-secret
+                  key: PG_PASSWORD
+            - name: POSTGRES_DB
               value: gestion_produits
           volumeMounts:
             - name: pgsql-init
