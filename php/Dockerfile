@@ -1,7 +1,8 @@
 FROM php:8.0-apache
 
 RUN apt-get update && apt-get upgrade -y \
-    && docker-php-ext-install mysqli pdo pdo_mysql
+    && apt-get install -y libpq-dev \
+    && docker-php-ext-install mysqli pdo pdo_mysql pdo_pgsql pgsql
 
 COPY ./www /var/www/html
 
