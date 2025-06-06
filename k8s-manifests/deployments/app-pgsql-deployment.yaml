@@ -20,7 +20,7 @@ spec:
             - name: DB_TYPE
               value: pgsql
             - name: PG_HOST
-              value: pgsql-db
+              value: pgsql-db.gestion-produits.svc.cluster.local
             - name: PG_DB
               value: gestion_produits
             - name: PG_USER

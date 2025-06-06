@@ -20,7 +20,7 @@ spec:
             - name: DB_TYPE
               value: mysql
             - name: MYSQL_HOST
-              value: mysql-db
+              value: mysql-db.gestion-produits.svc.cluster.local
             - name: MYSQL_DB
               value: gestion_produits
             - name: MYSQL_USER
