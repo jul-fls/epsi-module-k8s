@@ -9,8 +9,8 @@ data:
     tunnel: e5d3fecb-7eda-4d5c-8d72-1d4a505ca9a5
     credentials-file: /root/.cloudflared/e5d3fecb-7eda-4d5c-8d72-1d4a505ca9a5.json
     ingress:
-      - hostname: gestion-produits-mysql.flusin.fr
+      - hostname: gestion-produits.flusin.fr
         service: http://app-mysql.gestion-produits.svc.cluster.local:80
-      - hostname: gestion-produits-pgsql.flusin.fr
+      - hostname: dev-gestion-produits.flusin.fr
         service: http://app-pgsql.gestion-produits.svc.cluster.local:80
       - service: http_status:404
