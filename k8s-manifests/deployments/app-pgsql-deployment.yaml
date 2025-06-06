@@ -27,9 +27,9 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: db-pgsql-secret
-                  key: PL_USER
+                  key: PG_USER
             - name: PG_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-mysql-secret
+                  name: db-pgsql-secret
                   key: PG_PASSWORD
