@@ -1,0 +1,23 @@
+name: Apply EPSI TP K8S Manifests
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Apply all manifests
+        run: |
+          echo 🚀 Starting deployment of all manifests...
+          echo "Current directory: $(pwd)"
+          echo "Listing files in current directory:"
+          ls -la
+          kubectl apply -f ./k8s-manifests/ --recursive
