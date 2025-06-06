@@ -19,9 +19,9 @@ spec:
           env:
             - name: DB_TYPE
               value: pgsql
-            - name: MYSQL_HOST
+            - name: PG_HOST
               value: pgsql-db
-            - name: MYSQL_DB
+            - name: PG_DB
               value: gestion_produits
             - name: PG_USER
               valueFrom:
