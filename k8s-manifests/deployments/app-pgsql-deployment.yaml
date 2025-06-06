@@ -23,13 +23,13 @@ spec:
               value: pgsql-db
             - name: MYSQL_DB
               value: gestion_produits
-            - name: PGSQL_USER
+            - name: PG_USER
               valueFrom:
                 secretKeyRef:
                   name: db-pgsql-secret
-                  key: PGSQL_USER
-            - name: PGSQL_PASSWORD
+                  key: PL_USER
+            - name: PG_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: db-mysql-secret
-                  key: PGSQL_PASSWORD
+                  key: PG_PASSWORD

@@ -7,37 +7,46 @@ on:
 
 jobs:
   build:
+    if: >
+      contains(github.event.head_commit.message, '[force-build]') ||
+      github.event_name == 'push' && (
+        contains(join(github.event.commits.*.modified, ','), 'php/') ||
+        contains(join(github.event.commits.*.added, ','), 'php/') ||
+        contains(join(github.event.commits.*.modified, ','), 'Dockerfile') ||
+        contains(join(github.event.commits.*.added, ','), 'Dockerfile')
+      )
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     steps:
-    - name: Check out the repository
-      uses: actions/checkout@v4
-    - name: Log in to the GitHub Container Registry
-      uses: docker/login-action@v3
-      with:
-        registry: ghcr.io
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v5
-      with:
-        context: php/
-        file: ./php/Dockerfile
-        push: true
-        tags: ghcr.io/${{ github.repository }}/gestion-produits:latest
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: php/
+          file: ./php/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository }}/gestion-produits:latest
 
   deploy:
     runs-on: k8s-cp
-    needs: build
+    needs: [build]
+    if: always()
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
       - name: Apply all manifests
         run: |
           echo 🚀 Starting deployment of all manifests...
-          echo "Current directory: $(pwd)"
-          echo "Listing files in current directory:"
-          ls -la
           kubectl apply -f ./k8s-manifests/ --recursive
