@@ -1,0 +1,35 @@
+# tunnel/daemonset.yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: cloudflared
+  namespace: gestion-produits
+spec:
+  selector:
+    matchLabels:
+      app: cloudflared
+  template:
+    metadata:
+      labels:
+        app: cloudflared
+    spec:
+      containers:
+        - name: cloudflared
+          image: cloudflare/cloudflared:latest
+          args:
+            - tunnel
+            - --no-autoupdate
+            - run
+            - --config
+            - /etc/cloudflared/config.yaml
+          volumeMounts:
+            - name: config
+              mountPath: /etc/cloudflared
+      volumes:
+        - name: config
+          projected:
+            sources:
+              - configMap:
+                  name: cloudflared-config
+              - secret:
+                  name: cloudflared-credentials
