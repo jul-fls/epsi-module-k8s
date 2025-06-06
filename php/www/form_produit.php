@@ -6,11 +6,11 @@
 
     if (isset($_GET['id'])) {
         $action = "modification";
-        $PRO_id = $_GET['id'];
+        $pro_id = $_GET['id'];
 
-        $sql = "SELECT * FROM produits WHERE PRO_id = ?";
+        $sql = "SELECT * FROM produits WHERE pro_id = ?";
         $res = $db->prepare($sql);
-        $res->bindParam(1, $PRO_id);
+        $res->bindParam(1, $pro_id);
         $res->execute();
         if ($res === false) {
             header('Location: home.php');
@@ -20,10 +20,10 @@
     } else {
         $action = "ajout";
         $produit = array(
-            'PRO_id' => '',
-            'PRO_lib' => '',
-            'PRO_description' => '',
-            'PRO_prix' => 0
+            'pro_id' => '',
+            'pro_lib' => '',
+            'pro_description' => '',
+            'pro_prix' => 0
         );
     }
 
