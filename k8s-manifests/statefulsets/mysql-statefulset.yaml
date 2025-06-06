@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mysql-db
   namespace: gestion-produits
@@ -8,6 +8,7 @@ spec:
   selector:
     matchLabels:
       app: mysql-db
+  serviceName: mysql-db-headless
   template:
     metadata:
       labels:
@@ -31,6 +32,12 @@ spec:
         - name: mysql-init
           configMap:
             name: mysql-init-script
-        - name: mysql-data
-          persistentVolumeClaim:
-            claimName: mysql-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "manual"  # Replace if needed
+        resources:
+          requests:
+            storage: 1Gi

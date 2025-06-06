@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: pgsql-db
   namespace: gestion-produits
@@ -8,6 +8,7 @@ spec:
   selector:
     matchLabels:
       app: pgsql-db
+  serviceName: pgsql-db-headless
   template:
     metadata:
       labels:
@@ -43,6 +44,12 @@ spec:
         - name: pgsql-init
           configMap:
             name: pgsql-init-script
-        - name: pgsql-data
-          persistentVolumeClaim:
-            claimName: pgsql-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: pgsql-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "manual"  # or your NFS class
+        resources:
+          requests:
+            storage: 1Gi
