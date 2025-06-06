@@ -30,6 +30,7 @@ jobs:
 
   deploy:
     runs-on: k8s-cp
+    needs: build
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
