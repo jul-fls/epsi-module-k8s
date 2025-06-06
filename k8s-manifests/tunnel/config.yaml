@@ -7,7 +7,7 @@ metadata:
 data:
   config.yaml: |
     tunnel: e5d3fecb-7eda-4d5c-8d72-1d4a505ca9a5
-    credentials-file: /root/.cloudflared/e5d3fecb-7eda-4d5c-8d72-1d4a505ca9a5.json
+    credentials-file: /etc/cloudflared/credentials.json
     ingress:
       - hostname: gestion-produits.flusin.fr
         service: http://app-mysql.gestion-produits.svc.cluster.local:80
