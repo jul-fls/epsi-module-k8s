@@ -7,6 +7,10 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
+  mountOptions:
+    - nolock
+    - noatime
+    - nfsvers=4.1
   nfs:
     server: 192.168.1.133
     path: /mnt/pool_other/kubernetes/gestion-produits/pgsql
