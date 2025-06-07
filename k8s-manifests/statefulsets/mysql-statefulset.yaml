@@ -4,11 +4,11 @@ metadata:
   name: mysql-db
   namespace: gestion-produits
 spec:
+  serviceName: mysql-db-headless
   replicas: 1
   selector:
     matchLabels:
       app: mysql-db
-  serviceName: mysql-db-headless
   template:
     metadata:
       labels:
@@ -37,7 +37,7 @@ spec:
         name: mysql-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "manual"
+        storageClassName: manual
         resources:
           requests:
             storage: 1Gi

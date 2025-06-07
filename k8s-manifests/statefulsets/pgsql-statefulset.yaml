@@ -4,11 +4,11 @@ metadata:
   name: pgsql-db
   namespace: gestion-produits
 spec:
+  serviceName: pgsql-db-headless
   replicas: 1
   selector:
     matchLabels:
       app: pgsql-db
-  serviceName: pgsql-db-headless
   template:
     metadata:
       labels:
@@ -49,7 +49,7 @@ spec:
         name: pgsql-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "manual"
+        storageClassName: manual
         resources:
           requests:
             storage: 1Gi
