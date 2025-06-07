@@ -49,7 +49,7 @@ spec:
         name: pgsql-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "manual"  # or your NFS class
+        storageClassName: "manual"
         resources:
           requests:
             storage: 1Gi
