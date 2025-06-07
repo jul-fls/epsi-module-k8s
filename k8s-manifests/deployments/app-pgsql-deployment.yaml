@@ -19,17 +19,17 @@ spec:
           env:
             - name: DB_TYPE
               value: pgsql
-            - name: PG_HOST
+            - name: POSTGRES_HOST
               value: pgsql-db.gestion-produits.svc.cluster.local
-            - name: PG_DB
+            - name: POSTGRES_DB
               value: gestion_produits
-            - name: PG_USER
+            - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   name: db-pgsql-secret
-                  key: PG_USER
-            - name: PG_PASSWORD
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: db-pgsql-secret
-                  key: PG_PASSWORD
+                  key: POSTGRES_PASSWORD

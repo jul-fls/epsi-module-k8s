@@ -11,9 +11,9 @@ try {
         );
     } elseif ($dbType === 'pgsql') {
         $db = new PDO(
-            "pgsql:host=" . getenv("PG_HOST") . ";dbname=" . getenv("PG_DB"),
-            getenv("PG_USER"),
-            getenv("PG_PASSWORD")
+            "pgsql:host=" . getenv("POSTGRES_HOST") . ";dbname=" . getenv("POSTGRES_DB"),
+            getenv("POSTGRES_USER"),
+            getenv("POSTGRES_PASSWORD")
         );
     } else {
         throw new Exception("Unsupported DB_TYPE: $dbType");
