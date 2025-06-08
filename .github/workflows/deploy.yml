@@ -1,4 +1,4 @@
-name: Apply EPSI TP K8S Manifests
+name: Apply EPSI Module K8S Manifests
 
 on:
   push:
