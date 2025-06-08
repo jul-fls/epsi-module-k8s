@@ -9,11 +9,13 @@ jobs:
   build:
     if: >
       contains(github.event.head_commit.message, '[force-build]') ||
-      github.event_name == 'push' && (
-        contains(join(github.event.commits.*.modified, ','), 'php/') ||
-        contains(join(github.event.commits.*.added, ','), 'php/') ||
-        contains(join(github.event.commits.*.modified, ','), 'Dockerfile') ||
-        contains(join(github.event.commits.*.added, ','), 'Dockerfile')
+      (
+        github.event_name == 'push' && (
+          contains(join(github.event.commits.*.modified, ','), 'php/') ||
+          contains(join(github.event.commits.*.added, ','), 'php/') ||
+          contains(join(github.event.commits.*.modified, ','), 'Dockerfile') ||
+          contains(join(github.event.commits.*.added, ','), 'Dockerfile')
+        )
       )
     runs-on: ubuntu-latest
     permissions:
